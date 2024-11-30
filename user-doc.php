@@ -129,10 +129,10 @@ $hasWorkData = (count($workData) > 0);
                                     <?php if($image): ?>
                                         
                                         <img class="doc-img" src="<?php echo htmlspecialchars($file); ?>">
-                                        <a class="btn bg-l-purp col-blk" href="<?php echo htmlspecialchars($file); ?>" download>Download </a><br>
+                                        <a class="btn radius bg-l-purp col-blk" href="<?php echo htmlspecialchars($file); ?>" download>Download </a><br>
                                     <?php else : ?>
-                                         <a class="btn bg-purp col-wh" href="<?php echo htmlspecialchars($file); ?>" target="_blank">See</a>
-                                         <a class="btn bg-l-purp col-blk" href="<?php echo htmlspecialchars($file); ?>" download>Download: <?php echo basename($file); ?></a><br>
+                                         <a class="btn radius bg-purp col-wh" href="<?php echo htmlspecialchars($file); ?>" target="_blank">See</a>
+                                         <a class="btn radius bg-l-purp col-blk" href="<?php echo htmlspecialchars($file); ?>" download>Download: <?php echo basename($file); ?></a><br>
                                     <?php endif; ?>
                                     
                                 <?php else: ?>

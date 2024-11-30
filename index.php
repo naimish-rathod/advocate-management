@@ -1,5 +1,17 @@
-<!-- ============================== php block start ============================== -->
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+			/* =================================
+					variable declaration 
+			====================================*/
+
+	$present_cases = 0; // Default value if no cases are found
+	$present_emp = 0;  // Default value if no employees are marked present
+	$curdate = date('Y-m-d'); // for current date
+	$ntfyCountPend = 0;
+	$ntfyCountDone = 0;
+	$statuss = "pending";
 
 session_start();
 include 'connection.php';
@@ -20,21 +32,16 @@ $user = $_SESSION['uname'];
 	$emp = $conn->prepare("SELECT * FROM `all-adv`");
 	$emp->execute();
 	$emp_res=$emp->get_result();
-	//$emp_row = $emp_res->fetch_assoc();
-	// echo $emp_row['name'];
-	// echo $emp_row['edu'];
-
+	 
 // query for find attendace 
-	$curdate = date('Y-m-d');
-
 	$attend=$conn->prepare("SELECT * FROM `attendance` WHERE DATE(`entry`) = ?");
 	$attend->bind_param("s",$curdate);
 	$attend->execute();
 	$attend->store_result();
+		if($attend->num_rows > 0){
+			$present_emp=$attend->num_rows;
+		}
 
-	if($attend->num_rows > 0){
-		$present_emp=$attend->num_rows;
-	}
 // query for find total cases include pending and done from all advocate
 	$qryWork = "SELECT * FROM `work-data`";
 	$stmtWork = $conn->prepare($qryWork);
@@ -43,8 +50,6 @@ $user = $_SESSION['uname'];
 	$workData = $resWork->fetch_all(MYSQLI_ASSOC);
 
 	//query for complated and pending notification  bubble count
-	$ntfyCountPend = 0;
-	$ntfyCountDone = 0;
 	foreach ($workData as $workRow) {
 	    if ($workRow['status'] === 'pending') {
 	        $ntfyCountPend++;
@@ -61,9 +66,21 @@ $user = $_SESSION['uname'];
 	$cases->execute();
 	$cases->store_result();
 
-	if($cases->num_rows > 0){
-		$present_cases=$cases->num_rows;
+	if ($cases->num_rows > 0) {
+    	$present_cases = $cases->num_rows;
 	}
+//query for temp user 
+	$tempUser=$conn->prepare("SELECT * FROM `temp_user` WHERE `status` = ?");
+	$tempUser->bind_param("s", $statuss);
+	$tempUser->execute();
+	$tempUserRes = $tempUser->get_result();
+
+	if ($tempUserRes->num_rows > 0) {
+    	$hasTemp = true;
+	} else {
+	     $hasTemp = false;
+	}
+	
 
 //for work and employee data
 	if ($emp_res ->num_rows > 0) {  //if brace start
@@ -89,7 +106,7 @@ $user = $_SESSION['uname'];
 	 		<ul class="navbar-nav nav-text">
 	 			<!-- side bar image -->
 	 			<li class="nav-item me-3">
-	 				 <img src="img/munu.png" class="menu-img" data-bs-toggle="offcanvas" data-bs-target="#demo">
+	 				 <img src="img/munu.png"  class="menu-img" data-bs-toggle="offcanvas" data-bs-target="#demo">
 	 			</li>
 	 			<!-- side bar image -->
 	 			<li class="nav-item ms-4">
@@ -107,7 +124,7 @@ $user = $_SESSION['uname'];
 	 		</ul>
 	 	</div>
 	 	<span class="uname me-3"><?php echo htmlspecialchars($row['name']); ?></span>
-	 	<img src="<?php echo htmlspecialchars($row['user_img_src']); ?> " class="user_img me-4">
+	 	<img alt="profile" src="<?php echo htmlspecialchars($row['user_img_src']); ?> " class="user_img me-4">
 	 </nav>
 	 </div>
 	 
@@ -134,7 +151,7 @@ $user = $_SESSION['uname'];
 	 =============================== -->
 	 <div class="row container-lg mx-auto mt-5">
 	 	<div class="col-sm-8 mt-3"> 
-	 		<table class="table table-bordered">
+	 		<table class="table table-bordered text table-striped">
 		 	<form class="form" action="register-client.php" method="get">
 		 		<tr >
 		 			<th colspan="2" class="table-head-col ">
@@ -145,7 +162,7 @@ $user = $_SESSION['uname'];
 		 			<th>Employee ID</th>
 		 			<td> 
 		 				<div class="dropdown">
-		 					<button class="btn dropdown-toggle" data-bs-toggle="dropdown" id="ename">Employee list</button>
+		 					<button class="btn bg-purp col-wh radius dropdown-toggle" data-bs-toggle="dropdown" id="ename">Employee list</button>
 		 					<ul class="dropdown-menu">
 		 						<li class="dropdown-item drop" data-id="1">1 Mr. Vishal solanki</li>
 		 						<li class="dropdown-item drop" data-id="2">2 Mr. Naimish rathod</li>
@@ -170,8 +187,8 @@ $user = $_SESSION['uname'];
 		 		</tr>
 		 		<tr class="text-center">
 		 			<td colspan="2" rowspan="2">
-		 				<input type="reset" name="reset" class="btn bg-purp col-wh">
-		 				<input type="submit" name="submit" value="Register" class="btn bg-purp col-wh">
+		 				<input type="reset" name="reset" class="btn bg-purp col-wh radius">
+		 				<input type="submit" name="submit" value="Register" class="btn bg-purp col-wh radius">
 		 			</td> 
 		 		</tr>
 		 	</form>
@@ -192,13 +209,111 @@ $user = $_SESSION['uname'];
 	 	
 	 </div>
 	 <!-- ==============================
+				register employee
+	 =============================== -->
+	 <div class="container mt-4">
+	 	<table class="table table-bordered text-center table-striped">
+		 	<form class="form" action="register-emp-admin.php" method="post" enctype="multipart/form-data">
+		 		<tr >
+		 			<th colspan="2" class="table-head-col ">
+		 				<h4 class="text-center marg" >Register a new employee</h4>
+		 			</th>
+		 		</tr>
+		 		<tr>
+		 				<th>Profile picture</th>
+						<td>
+							<input type="file" name="profile" class="form-control">
+						</td>
+				</tr>
+		 		<tr>
+		 			<th>Employee name</th>
+		 			<td><input type="text" name="name" class="form-control"></td>
+		 		</tr>
+		 		<tr>
+		 			<th>Employee password</th>
+		 			<td><input type="text" name="pwd" class="form-control"></td>
+		 		</tr>
+		 		<tr>
+		 			<th>Education</th>
+		 			<td><input type="text" name="edu" class="form-control"></td>
+		 		</tr>
+		 		<tr>
+		 			<th>Experiance</th>
+		 			<td><input type="text" name="exp" class="form-control"></td>
+		 		</tr>
+		 		<tr>
+		 			<th>Work speciality</th>
+		 			<td><input type="text" name="work" class="form-control"></td>
+		 		</tr>
+		 		<tr>
+		 			<th>Available</th>
+		 			<td><input type="text" name="available" class="form-control"></td>
+		 		</tr>
+		 		<tr class="text-center">
+		 			<td colspan="2" rowspan="2">
+		 				<input type="reset" name="reset" class="btn bg-purp col-wh radius">
+		 				<input type="submit" name="submit" value="Register" class="btn bg-purp col-wh radius">
+		 			</td> 
+		 		</tr>
+		 	</form>
+	 		</table>
+	 </div>
+
+	  <!-- ==============================
+				pending user
+	 =============================== -->
+	<div class="thirteen mt-5 head-widh">
+    	<h1>Approve employee</h1>
+	</div>
+ 	 <div class="container mt-4 rounded">
+	  	<table class="table table-striped table-bordered text-center" id="emp">
+	  		<thead>
+	  		<tr>
+	  			<th class="table-head-col">Employee Id</th>
+	  			<th class="table-head-col">Password</th>
+	  			<th class="table-head-col">Name</th>
+	  			<th class="table-head-col">Education</th>
+	  			<th class="table-head-col">Work experiance</th>
+	  			<th class="table-head-col">Expert</th>
+	  			<th class="table-head-col">Available</th>
+	  			<th class="table-head-col">Approve</th>
+	  		</tr>
+	  		</thead>
+	  		<tbody>
+	  		<?php while ($tempData = $tempUserRes->fetch_assoc()) { ?> <!--while loop start here -->
+	  			</tbody>
+	  		<tr>
+	  			<td><?php echo htmlspecialchars($tempData['id']); ?> </td>
+	  			<td><?php echo htmlspecialchars($tempData['pwd']); ?> </td>
+	  			<td><?php echo htmlspecialchars($tempData['name']); ?> </td>
+	  			<td><?php echo htmlspecialchars($tempData['edu']); ?> </td>
+	  			<td><?php echo htmlspecialchars($tempData['exp']); ?> </td>
+	  			<td><?php echo htmlspecialchars($tempData['work']); ?> </td>
+	  			<td><?php echo htmlspecialchars($tempData['available']); ?> </td>
+	  			<td>
+		  			 <a class="btn bg-purp col-wh radius" href="add-new-user.php?id=<?php echo htmlspecialchars($tempData['id']); ?>" >Approve</a>
+	  			</td>
+	  		</tr>
+		  	<?php  } ?>  <!--while loop end here -->
+		  	<?php if ($hasTemp === false) { ?>
+			    <tr>
+			        <td colspan="8">No pending user found</td>
+			    </tr>
+			<?php } ?>
+		  	 
+		  	</tbody>
+	 	</table>
+	 </div>
+
+
+	 <!-- ==============================
 				Staff details
 	 =============================== -->
-	 <div class="thirteen mt-5">
+	<div class="thirteen mt-5">
     	<h1>Employee</h1>
 	</div>
- 	 <div class="container mt-5 rounded" id="emp">
-	  	<table class="table table-striped table-bordered" >
+ 	 <div class="container mt-4 rounded" id="emp">
+	  	<table class="table table-striped table-bordered text-center" >
 	  		<thead>
 	  		<tr>
 	  			<th class="table-head-col">Employee Id</th>
@@ -221,8 +336,9 @@ $user = $_SESSION['uname'];
 	  			<td><?php echo htmlspecialchars($emp_row['work']); ?> </td>
 	  			<td><?php echo htmlspecialchars($emp_row['available']); ?> </td>
 	  		</tr>
-		  	<?php  } ?>  <!--while loop end here -->
+		 <?php  } ?>  <!--while loop end here -->
 		  	</tbody>
+		 	 
 	 	</table>
 	 </div>
 </body>

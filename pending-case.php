@@ -1,6 +1,5 @@
-<?php include 'header.php'; ?>
-<!-- ============================== html block start ============================== -->
-<?php
+<?php include 'header.php';  
+ 
 // Prepare the SQL query to fetch completed cases
 $comp = $conn->prepare("SELECT * FROM `work-data` WHERE `status` = 'pending'");
 $comp->execute();

@@ -72,10 +72,19 @@ if ($caseRes->num_rows > 0) {
                         <td><?php echo htmlspecialchars($case['created_at']); ?></td>
                         <td class="btn-2">
                             <?php foreach ($filePath as $file): ?>
-                                <?php if ($file): ?>
+                                <?php if ($file): 
+                                    $fileP = strtolower(pathinfo($file,PATHINFO_EXTENSION));
+                                     $image = in_array($fileP, ['png', 'jpeg', 'jpg', 'svg']); ?>
                                     <br>
-                                    <a class="btn bg-purp col-wh" href="<?php echo htmlspecialchars($file); ?>" target="_blank">See</a>
-                                    <a class="btn bg-l-purp col-blk" href="<?php echo htmlspecialchars($file); ?>" download>Download</a><br>
+                                    <?php if($image): ?>
+                                        
+                                        <img class="doc-img" src="<?php echo htmlspecialchars($file); ?>">
+                                        <a class="btn bg-l-purp col-blk ms-3" href="<?php echo htmlspecialchars($file); ?>" download>Download </a><br>
+                                    <?php else : ?>
+                                         <a class="btn bg-purp col-wh" href="<?php echo htmlspecialchars($file); ?>" target="_blank">See</a>
+                                         <a class="btn bg-l-purp col-blk" href="<?php echo htmlspecialchars($file); ?>" download>Download: <?php echo basename($file); ?></a><br>
+                                    <?php endif; ?>
+                                    
                                 <?php else: ?>
                                     No document uploaded!
                                 <?php endif; ?>

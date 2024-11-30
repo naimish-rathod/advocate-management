@@ -39,7 +39,7 @@ position: absolute;
   bottom: 3px;
   left: 50%;
   margin-left: -14px;
-  background-color: #b80000;
+  background-color: #FFE4FC;
 }
 .one h1:after {
   width: 100px;
@@ -50,7 +50,7 @@ position: absolute;
   margin-top: 25px;
   left: 50%;
   margin-left: -50px;
-  background-color: #b80000;
+  background-color: #FFE4FC;
 }
 h1 {
   position: relative;
@@ -76,4 +76,40 @@ h1 em {
 .form-control {
 	border-radius: 20px;
 /*    border: 2px solid;*/
+}
+.tw {
+  width: 100%;
+}
+.tab-body {
+  margin-top: 100px;
+  border-radius: 30px;
+  border:2px solid;
+  padding: 50px;
+  max-width: 700px;
+}
+.bg-purp {
+    background: #352741 !important;
+}
+.col-wh {
+    color: #FFE4FC !important;
+}
+.bg-l-purp {
+    background: #EBDAEF !important;
+}
+.errElem{
+  color: red;
+  display: none;
+  font-weight: bold;
+ }
+ .radius {
+  border-radius: 20px;
+ }
+.time {
+  display: unset;
+  width: 41%;
+}
+.time-par {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
 }

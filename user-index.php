@@ -134,7 +134,7 @@ $hasWorkData = (count($workData) > 0);
                                 <input type="file" name="file[]" class="form-control" multiple>
                             </td>
                             <td>
-                                <input type="submit" value="Update" class="btn bg-purp col-wh">
+                                <input type="submit" value="Update" class="btn radius bg-purp col-wh">
                                 <input type="hidden" name="case_id" value="<?php echo htmlspecialchars($rowWork['case_id']); ?>">
                             </td>
                         </form>

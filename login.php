@@ -13,10 +13,10 @@
     <div class="container main">
      
         <div class="card log-div mx-auto shadow-lg card-bg">
-            <div class="card-header">
-                <h1 class="text-center">Login</h1>
+            <div class="card-header bg-purp">
+                <h1 class="text-center col-wh">Login</h1>
             </div>
-            <div class="card-body">
+            <div class="card-body bg-l-purp">
                 <form method="post" action="login-check.php">
                     <div class="form-floating mt-3">
                         <input type="text" name="uname" class="form-control card-bg" placeholder="Enter Username">
@@ -29,11 +29,11 @@
                     <div>
                         <a href="#" class="float-end mt-2 text-decoration-none">Forgot Password?</a>
                     </div>
-                    <input type="submit" value="Login" class="btn btn-primary mx-auto mt-5 d-block btn-log">
+                    <input type="submit" value="Login" class="btn bg-purp col-wh radius mx-auto mt-5 d-block btn-log">
                 </form>
             </div>
-            <div class="card-footer text-center">
-                Don't have an account? <a href="register-user.php" class="text-decoration-none">Register</a>
+            <div class="card-footer text-center bg-purp col-wh">
+                Don't have an account? <a href="register-user.php" class="text-decoration-none col-wh">Register</a>
             </div>
         </div>
     </div>
