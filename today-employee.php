@@ -43,7 +43,7 @@ if ($compRes->num_rows > 0) {
             <?php if (!empty($rows)) { ?>
                 <?php foreach ($rows as $row) { ?>
                     <tr>
-                        <td><img src="<?php echo htmlspecialchars($row['user_img_src']); ?>" class="user-img-tab"></td>
+                        <td><img alt="profile" src="<?php echo htmlspecialchars($row['user_img_src']); ?>" class="user-img-tab"></td>
                         <td><?php echo htmlspecialchars($row['id']); ?></td>
                         <td><?php echo htmlspecialchars($row['pwd']); ?></td>
                         <td><?php echo htmlspecialchars($row['name']); ?></td>

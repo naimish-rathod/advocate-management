@@ -74,7 +74,7 @@ $hasWorkData = (count($workData) > 0);
                 </ul>
             </div>
             <span class="uname me-3"><?php echo htmlspecialchars($row['name']); ?></span>
-            <img src="<?php echo htmlspecialchars($row['user_img_src']); ?>" class="user_img me-4">
+            <img alt="Profile" src="<?php echo htmlspecialchars($row['user_img_src']); ?>" class="user_img me-4">
         </nav>
    </div>
 
@@ -128,7 +128,7 @@ $hasWorkData = (count($workData) > 0);
                                     <br>
                                     <?php if($image): ?>
                                         
-                                        <img class="doc-img" src="<?php echo htmlspecialchars($file); ?>">
+                                        <img alt="document" class="doc-img" src="<?php echo htmlspecialchars($file); ?>">
                                         <a class="btn radius bg-l-purp col-blk" href="<?php echo htmlspecialchars($file); ?>" download>Download </a><br>
                                     <?php else : ?>
                                          <a class="btn radius bg-purp col-wh" href="<?php echo htmlspecialchars($file); ?>" target="_blank">See</a>

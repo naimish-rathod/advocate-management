@@ -18,7 +18,7 @@
     	let txtVal = txt.value ;
        	let errMsg = document.getElementById(errId);
 
-     	if(/^[a-zA-Z]+$/.test(txtVal.trim())) {
+     	if(/^[a-zA-Z\s]+$/.test(txtVal.trim())) {
      		errMsg.style.display = "none";
      	}else {
      		txt.value="";
@@ -39,3 +39,87 @@
 		}
 
 	}
+
+	// for the remove warning message 
+		var getPass = document.getElementById("getPass");
+		var capitalId = document.getElementById("capitalId");
+		var smallId = document.getElementById("smallId");
+		var numberId = document.getElementById("numberId");
+		var specialId = document.getElementById("specialId");
+		var lengthId = document.getElementById("lengthId");
+		var submitBtn = document.getElementById("submitBtn");
+
+		getPass.onkeyup = () => {
+	    
+		    let inputVal = getPass.value;
+		    var length = inputVal.length;
+		    var lowerCase = /[a-z]/g;
+			var uperCase = /[A-Z]/g;
+			var number = /[0-9]/g;
+			var special = /[^a-zA-Z0-9]/g;
+			// optional method useful if only match the passwprd dont show hide warnings
+			// var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,}$/;
+
+			// Special character
+			if(inputVal.match(special)) {
+	    		 specialId.style.display = "none";
+	    	} else { 
+	    		 specialId.style.display = "unset";
+	    	}
+	    	
+	    	// Uppercase character
+			if(inputVal.match(uperCase)) {
+	    		 capitalId.style.display = "none";
+	    	} else { 
+	    		 capitalId.style.display = "unset";
+	    	}
+
+	    	// Lower character 
+	    	if(inputVal.match(lowerCase)) {
+	    		 smallId.style.display = "none";
+	    	} else { 
+	    		 smallId.style.display = "unset";
+	    	}
+
+	    	//Number 
+	    	if(inputVal.match(number)) {
+	    		 numberId.style.display = "none";
+	    	} else { 
+	    		 numberId.style.display = "unset";
+	    	}
+
+	    	//8 digit
+	    	if(inputVal.length > 8) {
+	    		 lengthId.style.display = "none";
+	    	} else { 
+	    		 lengthId.style.display = "unset";
+	    	}
+
+	    	if(
+	    		inputVal.match(special) &&
+	    		inputVal.match(uperCase) &&
+	    		inputVal.match(lowerCase) &&
+	    		inputVal.match(number) &&
+	    		inputVal.length > 8
+	    		) {
+		    		validation.style.display = "none";
+		    		submitBtn.disabled = false;
+				} else {
+					validation.style.display = "unset";
+		    		submitBtn.disabled = true;
+				}
+
+	};
+	    	 
+
+	// for show and hide the validation div 
+		var valBox = document.querySelector("#valBox");
+		var validation = document.querySelector(".validation");
+		getPass.onfocus = () => {
+			validation.style.display = "unset";
+		}
+		getPass.onblur = () => {
+			validation.style.display = "none";
+		}
+
+		 

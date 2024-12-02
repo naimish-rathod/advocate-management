@@ -292,6 +292,8 @@ $user = $_SESSION['uname'];
 	  			<td><?php echo htmlspecialchars($tempData['available']); ?> </td>
 	  			<td>
 		  			 <a class="btn bg-purp col-wh radius" href="add-new-user.php?id=<?php echo htmlspecialchars($tempData['id']); ?>" >Approve</a>
+
+		  			 <a href="reject-user.php?id=<?php echo htmlspecialchars($tempData['id']); ?>" class="btn bg-purp col-wh radius">Reject</a>
 	  			</td>
 	  		</tr>
 		  	<?php  } ?>  <!--while loop end here -->

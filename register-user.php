@@ -36,7 +36,18 @@
 							<td class="col-wh pb-2">Enter your password</td>
 						</tr>
 						<tr>
-							<td><input type="password" name="pwd" class="form-control mb-4" placeholder="Password" required ></td>	
+							
+							<td class="val-td">
+								<div class="bg-l-purp validation" id="valBox">
+									<span><b>Password must contain: </b> </span>
+									<span id="capitalId">one capital ,</span>
+									<span id="smallId">one small ,</span>
+									<span id="numberId">one number ,</span>
+									<span id="specialId">one special char ,</span>
+									<span id="lengthId">minimum 8 latters</span>
+								</div>
+								<input type="password" name="pwd" class="form-control mb-4" placeholder="Password" id="getPass" required>
+							</td>	
 						</tr>
 						<tr>
 							<td class="col-wh pb-2">Enter your education 
@@ -71,17 +82,34 @@
 						</tr>
 						<tr>
 							<td colspan="3" class="time-par">
-								<input type="time" name="available" class="form-control time mb-4" placeholder="Availity" required><span class="col-wh">To</span>
-								<input type="time" name="available" class="form-control time mb-4" placeholder="Availity" required>
+								<input type="time" name="availableIn" class="form-control time mb-4" placeholder="Availity" required><span class="col-wh">To</span>
+								<input type="time" name="availableOut" class="form-control time mb-4" placeholder="Availity" required>
 							</td>	
 						</tr>
 						<tr>
-							<td><input type="submit" class="btn bg-l-purp float-end radius"></td>
+							<td><input type="submit" id="submitBtn" class="btn bg-l-purp float-end radius"></td>
 						</tr>
 					</table>
 				</form>
 		</div>
-	</div>	
+	</div>
+	 
+	<div class="popup mx-auto border mt-5 mb-5 bg-l-purp" >
+		 
+		<div class="pop-header">
+			<button class="btn btn-close"></button> 
+			<h1>Success</h1>
+		</div>
+		<div class="success-img">
+			<img src="img/check.png">
+		</div>
+		<div class="pop-body">
+			<p>Your application is submitted we inform you if you are eligible</p>
+		</div>
+		<div class="pop-footer">
+			<button class="btn btn-primary">Ok</button>
+		</div>
+	</div>
 </body>
 <script src="script/validation.js"></script>
 </html>

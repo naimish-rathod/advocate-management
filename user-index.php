@@ -72,7 +72,7 @@ $hasWorkData = (count($workData) > 0);
                 </ul>
             </div>
             <span class="uname me-3"><?php echo htmlspecialchars($row['name']); ?></span>
-            <img src="<?php echo htmlspecialchars($row['user_img_src']); ?>" class="user_img me-4">
+            <img alt="Profile" src="<?php echo htmlspecialchars($row['user_img_src']); ?>" class="user_img me-4">
         </nav>
    </div>
    
