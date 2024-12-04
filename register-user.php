@@ -1,3 +1,12 @@
+<?php
+
+session_start();
+
+if(isset($_SESSION['status'])) {
+	 $hasStatus = $_SESSION['status'];
+
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,20 +16,21 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="css/login-style.css">
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 </head>
 <body>
-	<div class="mx-auto tab-body bg-purp">
+	<div class="mx-auto tab-body bg-purp" id="regTab">
 			<div class="one">
 	 			 <h1 class="col-wh">Registration form</h1>
 			</div>
 		<div class="mt-5">
-			<form action="register-emp-user.php" method="get" enctype="multipart/form-data">
+			<form action="register-emp-user.php" id="registerUser" method="post" enctype="multipart/form-data" onsubmit="showPop(event)">
 				<table class="tw">
 						<tr>
 							<td class="col-wh pb-2">Upload your profile&nbsp;<span id="err" class="errElem">Please upload only image file</span> </td>
 						</tr>
 						<tr>
-							<td><input type="file" name="profile" class="form-control mb-4" required onchange="imgValidate(event)" id="img"></td>
+							<td><input type="file" name="profile" class="form-control mb-4 profile" required onchange="imgValidate(event)" id="img"></td>
 						</tr>
 						<tr>
 							<td class="col-wh pb-2">Enter your name 
@@ -29,7 +39,7 @@
 						</tr>
 						<tr>
 							<td>
-								<input type="text" name="name" id="txt-1" class="form-control mb-4" placeholder="Name" required onchange="strValidate(event, 'err-1', 'txt-1')">
+								<input type="text" name="name" id="txt-1" class="form-control mb-4 name" placeholder="Name" required onchange="strValidate(event, 'err-1', 'txt-1')">
 							</td>	
 						</tr>
 						<tr>
@@ -46,7 +56,7 @@
 									<span id="specialId">one special char ,</span>
 									<span id="lengthId">minimum 8 latters</span>
 								</div>
-								<input type="password" name="pwd" class="form-control mb-4" placeholder="Password" id="getPass" required>
+								<input type="password" name="pwd" class="form-control mb-4 pwd" placeholder="Password" id="getPass" required>
 							</td>	
 						</tr>
 						<tr>
@@ -56,7 +66,7 @@
 						</tr>
 						<tr>
 							<td>
-								<input type="text" id="txt-2" name="edu" class="form-control mb-4" placeholder="Education" required onchange="strValidate(event, 'err-2', 'txt-2')">
+								<input type="text" id="txt-2" name="edu" class="form-control mb-4 edu" placeholder="Education" required onchange="strValidate(event, 'err-2', 'txt-2')">
 							</td>	
 						</tr>
 						<tr>
@@ -65,7 +75,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td><input type="text" id="txt-3" name="exp" class="form-control mb-4" placeholder="Experiance" required onchange="intValidate(event)"></td>	
+							<td><input type="text" id="txt-3" name="exp" class="form-control mb-4 exp" placeholder="Experiance" required onchange="intValidate(event)"></td>	
 						</tr>
 						<tr>
 							<td class="col-wh pb-2">Enter your work type
@@ -74,7 +84,7 @@
 						</tr>
 						<tr>
 							<td>
-								<input type="text" id="txt-4" name="work" class="form-control mb-4" placeholder="Work" required onchange="strValidate(event, 'err-4', 'txt-4')">
+								<input type="text" id="txt-4" name="work" class="form-control mb-4 work" placeholder="Work" required onchange="strValidate(event, 'err-4', 'txt-4')">
 							</td>	
 						</tr>
 						<tr>
@@ -82,35 +92,37 @@
 						</tr>
 						<tr>
 							<td colspan="3" class="time-par">
-								<input type="time" name="availableIn" class="form-control time mb-4" placeholder="Availity" required><span class="col-wh">To</span>
-								<input type="time" name="availableOut" class="form-control time mb-4" placeholder="Availity" required>
+								<input type="time" name="availableIn" class="form-control time mb-4 availableIn" placeholder="Availity" required><span class="col-wh">To</span>
+								<input type="time" name="availableOut" class="form-control time mb-4 availableOut" placeholder="Availity" required>
 							</td>	
 						</tr>
 						<tr>
-							<td><input type="submit" id="submitBtn" class="btn bg-l-purp float-end radius"></td>
+							<td><input type="submit" id="submitBtn" class="btn bg-l-purp float-end radius"> </td>
 						</tr>
 					</table>
 				</form>
 		</div>
 	</div>
+ 
 	 
-	<div class="popup mx-auto border mt-5 mb-5 bg-l-purp" >
+	<div class="popup mx-auto border mt-5 mb-5 bg-l-purp" id="popup">
 		 
 		<div class="pop-header">
-			<button class="btn btn-close"></button> 
+			<button class="btn btn-close float-end" onclick="hidePop()"></button> 
 			<h1>Success</h1>
 		</div>
 		<div class="success-img">
-			<img src="img/check.png">
+			<img src="img/check-3.gif">
 		</div>
 		<div class="pop-body">
-			<p>Your application is submitted we inform you if you are eligible</p>
+			<p>Your application is submitted we inform you if you are eligible.</p>
 		</div>
 		<div class="pop-footer">
-			<button class="btn btn-primary">Ok</button>
+			<a href="login.php" class="btn col-wh bg-purp radius">Ok</a>
 		</div>
 	</div>
 </body>
 <script src="script/validation.js"></script>
+<script src="script/response.js"></script>
 </html>
 

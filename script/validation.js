@@ -122,4 +122,39 @@
 			validation.style.display = "none";
 		}
 
-		 
+		function showPop(event) {
+
+			// Show the popup by adding the 'open-popup' class
+			var popup = document.getElementById("popup");
+			popup.classList.add("open-popup");
+
+			var regTab = document.getElementById("regTab");
+			//blur background form 
+
+			regTab.classList.add("blur-content");
+
+		}
+		function hidePop() {
+			 popup.classList.remove("open-popup");
+			 regTab.classList.remove("blur-content");
+		}
+		function resetData() {
+			var name =  document.querySelector(".name");
+			var profile =  document.querySelector(".profile");
+			var pwd =  document.querySelector(".pwd");
+			var edu =  document.querySelector(".edu");
+			var exp =  document.querySelector(".exp");
+			var work =  document.querySelector(".work");
+			var availableIn =  document.querySelector(".availableIn");
+			var availableOut =  document.querySelector(".availableOut");
+				name.value = "";
+				profile.value = "";
+				pwd.value = "";
+				edu.value = "";
+				exp.value = "";
+				work.value = "";
+				availableIn.value = "";
+				availableOut.value = "";
+		}
+
+ 

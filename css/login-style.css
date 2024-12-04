@@ -146,8 +146,34 @@ h1 em {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    visibility: hidden;
+    transition: transform 0.5s, top 0.5s;
+/*    transition: all 0.9s ease-out;*/
 }
 .success-img img{
   width: 100px;
   height: 100px;
+}
+.pop-header {
+  display: flex;
+  flex-direction: row-reverse;
+}
+.pop-header h1 {
+  margin: 10px 23px 0 0;
+}
+.pop-footer a {
+  width: 90px;
+}
+.open-popup {
+  visibility: visible;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(1);
+}
+.blur-content {
+  filter: blur(5px); 
+  pointer-events: none; 
 }
